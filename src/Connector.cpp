@@ -1,14 +1,19 @@
-#include <iostream>
+#include <string>
 
 #include <ros/ros.h>
+#include "gazebo_msgs/ModelStates.h"
+#include "sensor_msgs/JointState.h"
 
 #include "sml_Client.h"
+
+#include "svs_ros_connector/SVSObjects.h"
 
 class Connector {
 public:
 
     Connector() {
         errorStatus = !setUpSoar();
+        errorStatus = errorStatus | !setUpSubscribers();
     }
 
     // Handles setting up a local Soar agent and loading productions or
@@ -77,6 +82,24 @@ public:
         return true;
     }
 
+    // Subscribes to the necessary ROS topics
+    bool setUpSubscribers() {
+        objectsSub = n.subscribe("gazebo/model_states", 1, &Connector::objectsCallback, this);
+        jointsSub = n.subscribe("joint_states", 1, &Connector::jointsCallback, this);
+
+        return true;
+    }
+
+    // Updates SVS when a new world state is received
+    void objectsCallback(const gazebo_msgs::ModelStates::ConstPtr& msg) {
+        ROS_INFO("Received objects!");
+    }
+
+    // Updates SVS when a new arm position is received
+    void jointsCallback(const sensor_msgs::JointState::ConstPtr & msg) {
+        ROS_INFO("Received joints!");
+    }
+
     bool error() { return errorStatus; }
 
 private:
@@ -85,6 +108,9 @@ private:
     ros::NodeHandle n;
     sml::Kernel* k;
     sml::Agent* a;
+
+    ros::Subscriber objectsSub;
+    ros::Subscriber jointsSub;
 };
 
 int main(int argc, char *argv[]) {
