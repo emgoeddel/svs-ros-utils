@@ -14,6 +14,7 @@ public:
     Connector() {
         errorStatus = !setUpSoar();
         errorStatus = errorStatus | !setUpSubscribers();
+        errorStatus = errorStatus | !setUpSMLUpdate();
     }
 
     // Handles setting up a local Soar agent and loading productions or
@@ -84,20 +85,35 @@ public:
 
     // Subscribes to the necessary ROS topics
     bool setUpSubscribers() {
-        objectsSub = n.subscribe("gazebo/model_states", 1, &Connector::objectsCallback, this);
+        objectsSub = n.subscribe("gazebo/model_states", 5, &Connector::objectsCallback, this);
         jointsSub = n.subscribe("joint_states", 1, &Connector::jointsCallback, this);
 
         return true;
     }
 
-    // Updates SVS when a new world state is received
-    void objectsCallback(const gazebo_msgs::ModelStates::ConstPtr& msg) {
-        ROS_INFO("Received objects!");
+    // Sets up the SVS-SML update loop
+    bool setUpSMLUpdate() {
+        smlTimer = n.createTimer(ros::Duration(1), &Connector::updateSVS, this);
+
+        return true;
     }
 
-    // Updates SVS when a new arm position is received
+    // Updates SVSObjects class when a new world state is received
+    void objectsCallback(const gazebo_msgs::ModelStates::ConstPtr& msg) {
+        objects.update(msg);
+    }
+
+    // (Will do something?) when a new arm position is received
     void jointsCallback(const sensor_msgs::JointState::ConstPtr & msg) {
-        ROS_INFO("Received joints!");
+        //ROS_INFO("Received joints!");
+    }
+
+    void updateSVS(const ros::TimerEvent& e) {
+        std::string commands = objects.getSGELCommandsAndSync();
+        if (commands.empty()) return;
+
+        a->SendSVSInput(commands);
+        ROS_INFO("SVS UPDATE: %s", commands.c_str());
     }
 
     bool error() { return errorStatus; }
@@ -111,6 +127,9 @@ private:
 
     ros::Subscriber objectsSub;
     ros::Subscriber jointsSub;
+    ros::Timer smlTimer;
+
+    SVSObjects objects;
 };
 
 int main(int argc, char *argv[]) {
