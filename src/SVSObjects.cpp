@@ -1,5 +1,8 @@
 #include "svs_ros_connector/SVSObjects.h"
 
+const double SVSObjects::POS_THRESH = 0.001; // 1 mm
+const double SVSObjects::ROT_THRESH = 0.017; // approx 1 deg
+
 void SVSObjects::update(const gazebo_msgs::ModelStates::ConstPtr& msg) {
     boost::lock_guard<boost::mutex> guard(curMutex);
     curPos.clear();
@@ -31,13 +34,13 @@ std::string SVSObjects::getSGELCommandsAndSync() {
          i != curPos.end(); i++) {
         if (svsPos.count(i->first) == 0) {
             std::string n = i->first;
-            tf2::Vector3 p = i->second;
-            tf2::Matrix3x3 rot(curRot[n]);
+            tf2::Vector3 curP = i->second;
+            tf2::Matrix3x3 curR(curRot[n]);
             double roll, pitch, yaw;
-            rot.getRPY(roll, pitch, yaw);
+            curR.getRPY(roll, pitch, yaw);
 
             cmds << "add " << n << " world ";
-            cmds << "p " << p[0] << " " << p[1] << " " << p[2];
+            cmds << "p " << curP[0] << " " << curP[1] << " " << curP[2];
             cmds << " r " << roll << " " << pitch << " " << yaw;
             cmds << std::endl;
         }
@@ -53,17 +56,19 @@ std::string SVSObjects::getSGELCommandsAndSync() {
 
         // Change commands
         std::string n = i->first;
-        tf2::Vector3 p = i->second;
-        tf2::Quaternion q = svsRot[n];
+        tf2::Vector3 svsP = i->second;
+        tf2::Vector3 curP = curPos[n];
+        tf2::Quaternion svsQ = svsRot[n];
+        tf2::Quaternion curQ = curRot[n];
 
 
-        if (curPos[n] != p || curRot[n] != q) {
+        if (diffAboveThresh(svsP, curP) || diffAboveThresh(svsQ, curQ)) {
             cmds << "change " << n;
-            if (curPos[n] != p) {
-                cmds << " p " << p[0] << " " << p[1] << " " << p[2];
+            if (diffAboveThresh(svsP, curPos[n])) {
+                cmds << " p " << curP[0] << " " << curP[1] << " " << curP[2];
             }
-            if (curRot[n] != q) {
-                tf2::Matrix3x3 rot(q);
+            if (diffAboveThresh(svsQ, curQ)) {
+                tf2::Matrix3x3 rot(curQ);
                 double roll, pitch, yaw;
                 rot.getRPY(roll, pitch, yaw);
                 cmds << " r " << roll << " " << pitch << " " << yaw;
@@ -77,4 +82,14 @@ std::string SVSObjects::getSGELCommandsAndSync() {
     svsRot = curRot;
 
     return cmds.str();
+}
+
+bool SVSObjects::diffAboveThresh(tf2::Vector3 p1, tf2::Vector3 p2) {
+    if (tf2::tf2Distance(p1, p2) > POS_THRESH) return true;
+    return false;
+}
+
+bool SVSObjects::diffAboveThresh(tf2::Quaternion r1, tf2::Quaternion r2) {
+    if (r1.angleShortestPath(r2) > ROT_THRESH) return true;
+    return false;
 }
