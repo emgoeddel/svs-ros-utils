@@ -8,10 +8,9 @@ project(svs_ros_connector)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
+#  roscpp
   std_msgs
 )
-find_package(Threads REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -115,11 +114,11 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
-  /home/ecat/Soar/out/include
-)
+#include_directories(
+#  include
+#  ${catkin_INCLUDE_DIRS}
+#  /home/ecat/Soar/out/include
+#)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -134,8 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/Connector.cpp
-  src/SVSObjects.cpp)
+#add_executable(${PROJECT_NAME}_node)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -148,13 +146,7 @@ add_executable(${PROJECT_NAME}_node src/Connector.cpp
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-find_library(SOAR_LIB Soar HINTS $ENV{SOAR_HOME} ~/Soar/out)
-target_link_libraries(${PROJECT_NAME}_node
-    ${catkin_LIBRARIES}
-    ${SOAR_LIB}
-    ${CMAKE_THREAD_LIBS_INIT}
-    ${CMAKE_DL_LIBS}
-)
+#target_link_libraries(${PROJECT_NAME}_node)
 
 #############
 ## Install ##
