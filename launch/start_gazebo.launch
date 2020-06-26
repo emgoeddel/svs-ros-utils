@@ -1,7 +1,7 @@
 <!-- Edited version of pickplace_playground.launch from fetch_gazebo ROS package -->
 <launch>
 
-<env name="GAZEBO_MODEL_PATH" value="$(find svs_ros_connector)/models:$(find fetch_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)" />
+<env name="GAZEBO_MODEL_PATH" value="$(find svs_util)/models:$(find fetch_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)" />
 
 <arg name="gui" default="true"/>
 <arg name="world" default="empty_world.sdf"/>
@@ -16,10 +16,10 @@
 <arg name="verbose" value="false" />
 <arg name="use_sim_time" value="true"/>
 <arg name="headless" value="$(arg headless)"/>
-<arg name="world_name" value="$(find svs_ros_connector)/worlds/$(arg world)"/>
+<arg name="world_name" value="$(find svs_util)/worlds/$(arg world)"/>
 </include>
 
 <!-- Oh, you wanted a robot? -->
-<include file="$(find svs_ros_connector)/launch/fetch.launch.xml" />
+<include file="$(find svs_util)/launch/fetch.launch.xml" />
 
 </launch>
