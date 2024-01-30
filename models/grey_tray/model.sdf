@@ -7,7 +7,7 @@
         <geometry>
           <mesh>
             <uri>model://grey_tray/meshes/model.dae</uri>
-            <scale>1.2 1.2 0.5</scale>
+            <scale>1.19 1.2 0.5</scale>
           </mesh>
         </geometry>
         <material>
@@ -26,11 +26,31 @@
         <geometry>
           <mesh>
             <uri>model://grey_tray/meshes/model.dae</uri>
-            <scale>1.2 1.2 0.5</scale>
+            <scale>1.19 1.2 0.5</scale>
           </mesh>
         </geometry>
        </collision>
     </link>
+    <!--
+    <link name='dimensions'>
+        <visual name='visual'>
+        <pose frame=''>0.155 0.205 0.015 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.41 0.03</size>
+          </box>
+        </geometry>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+        </material>
+        <cast_shadows>0</cast_shadows>
+        <transparency>0.7</transparency>
+      </visual>
+      </link>
+    -->
     <static>1</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
