@@ -18,7 +18,6 @@
         </inertia>
       </inertial>
       <visual name='visual'>
-        <pose frame=''>0 0 -0.05 0 -0 0</pose>
         <geometry>
           <mesh>
             <uri>model://cup_glass/meshes/cup_glass.dae</uri>
@@ -43,10 +42,10 @@
         <transparency>0.6</transparency>
       </visual>
       <collision name='collision'>
-        <pose frame=''>0 0 -0.05 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>/home/mamantov/catkin_ws/src/rosie_motion/models/cup_glass/meshes/cup_glass.dae</uri>
+            <uri>model://cup_glass/meshes/cup_glass.dae</uri>
+            <scale>1 1 1</scale>
           </mesh>
         </geometry>
         <surface>
