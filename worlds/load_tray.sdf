@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="drink_objs">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://cafe_table</uri>
+      <name>cafe_table1</name>
+      <pose>0.8 0 -0.08 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://grey_tray</uri>
+      <name>grey_tray1</name>
+      <pose>0.6 -0.2 0.695 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://can_coke</uri>
+      <name>can_coke1</name>
+      <pose>0.7 0.3 0.695 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://cup_blue</uri>
+      <name>cup_blue1</name>
+      <pose>0.6 -0.3 0.695 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://tea_box</uri>
+      <name>tea_box1</name>
+      <pose>0.9 -0.3 0.695 0 0 0</pose>
+    </include>
+  </world>
+</sdf>
