@@ -125,7 +125,7 @@ if __name__ == "__main__":
 
     gripper_goal = GripperCommandGoal()
     gripper_goal.command.max_effort = 10.0
-    gripper_goal.command.position = 0.1
+    gripper_goal.command.position = 0.0
 
     rospy.loginfo("Setting positions...")
     torso_client.send_goal(torso_goal)
