@@ -3,41 +3,93 @@
   <model name='grey_tray'>
     <link name='link'>
         <visual name='visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
-            <uri>model://grey_tray/meshes/model.dae</uri>
-            <scale>1.19 1.2 0.5</scale>
-          </mesh>
-        </geometry>
-        <material>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://grey_tray/meshes/model.dae</uri>
+              <scale>1.19 1.2 0.5</scale>
+            </mesh>
+          </geometry>
+          <material>
             <script>
               <uri>file://media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Grey</name>
             </script>
-        </material>
-        <cast_shadows>1</cast_shadows>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <laser_retro>0</laser_retro>
-        <max_contacts>10</max_contacts>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <mesh>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <!--
+        <collision name='collision'>
+            <laser_retro>0</laser_retro>
+            <max_contacts>10</max_contacts>
+            <pose frame=''>0 0 0 0 -0 0</pose>
+            <geometry>
+            <mesh>
             <uri>model://grey_tray/meshes/model.dae</uri>
             <scale>1.19 1.2 0.5</scale>
-          </mesh>
-        </geometry>
-       </collision>
+            </mesh>
+            </geometry>
+            </collision>
+        -->
+        <collision name='collision_bottom'>
+            <laser_retro>0</laser_retro>
+            <max_contacts>10</max_contacts>
+            <pose frame=''>0.155 0.205 0.001 0 -0 0</pose>
+            <geometry>
+              <box>
+                <size>0.31 0.41 0.002</size>
+              </box>
+            </geometry>
+        </collision>
+        <collision name='far_wall_collision'>
+            <laser_retro>0</laser_retro>
+            <max_contacts>10</max_contacts>
+            <pose frame=''>0.3075 0.205 0.015 0 -0 0</pose>
+            <geometry>
+              <box>
+                <size>0.005 0.41 0.03</size>
+              </box>
+            </geometry>
+        </collision>
+        <collision name='near_wall_collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0.0025 0.205 0.015 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.005 0.41 0.03</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name='right_wall_collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0.155 0.4075 0.015 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.31 0.005 0.03</size>
+            </box>
+          </geometry>
+        </collision>
+        <collision name='left_wall_collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0.155 0.0025 0.015 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.31 0.005 0.03</size>
+            </box>
+          </geometry>
+        </collision>
     </link>
     <!--
-    <link name='dimensions'>
+    <link name='bottom_collision'>
         <visual name='visual'>
-        <pose frame=''>0.155 0.205 0.015 0 -0 0</pose>
+        <pose frame=''>0.155 0.205 0.001 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.31 0.41 0.03</size>
+            <size>0.31 0.41 0.002</size>
           </box>
         </geometry>
         <material>
@@ -49,7 +101,79 @@
         <cast_shadows>0</cast_shadows>
         <transparency>0.7</transparency>
       </visual>
-      </link>
+    </link>
+    <link name='top_wall_collision'>
+        <visual name='visual'>
+        <pose frame=''>0.3075 0.205 0.015 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.005 0.41 0.03</size>
+          </box>
+        </geometry>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+        </material>
+        <cast_shadows>0</cast_shadows>
+        <transparency>0.7</transparency>
+      </visual>
+    </link>
+    <link name='bottom_wall_collision'>
+        <visual name='visual'>
+        <pose frame=''>0.0025 0.205 0.015 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.005 0.41 0.03</size>
+          </box>
+        </geometry>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+        </material>
+        <cast_shadows>0</cast_shadows>
+        <transparency>0.7</transparency>
+      </visual>
+    </link>
+    <link name='rt_wall_collision'>
+        <visual name='visual'>
+        <pose frame=''>0.155 0.4075 0.015 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.005 0.03</size>
+          </box>
+        </geometry>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+        </material>
+        <cast_shadows>0</cast_shadows>
+        <transparency>0.7</transparency>
+      </visual>
+    </link>
+    <link name='lf_wall_collision'>
+        <visual name='visual'>
+        <pose frame=''>0.155 0.0025 0.015 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.31 0.005 0.03</size>
+          </box>
+        </geometry>
+        <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+        </material>
+        <cast_shadows>0</cast_shadows>
+        <transparency>0.7</transparency>
+      </visual>
+    </link>
     -->
     <static>1</static>
     <allow_auto_disable>1</allow_auto_disable>
