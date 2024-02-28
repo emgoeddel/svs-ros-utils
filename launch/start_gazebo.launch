@@ -21,6 +21,5 @@
 
 <!-- Oh, you wanted a robot? -->
 <include file="$(find svs_util)/launch/fetch.launch.xml" />
-<include file="$(find fetch_moveit_config)/launch/move_group.launch" />
 
 </launch>
