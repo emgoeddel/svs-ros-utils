@@ -25,12 +25,12 @@
     <include>
       <uri>model://cup_blue</uri>
       <name>cup_blue1</name>
-      <pose>0.55 0.36 0.695 0 0 0</pose>
+      <pose>0.62 0.36 0.695 0 0 0</pose>
     </include>
     <include>
       <uri>model://tea_box</uri>
       <name>tea_box1</name>
-      <pose>0.90 0.27 0.695 0 0 0</pose>
+      <pose>0.85 0.31 0.695 0 0 0</pose>
     </include>
     <include>
       <uri>model://demo_lamp</uri>
