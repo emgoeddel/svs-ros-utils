@@ -39,8 +39,10 @@
           <material>
             <script>
               <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/White</name>
+              <name>Gazebo/Red</name>
             </script>
+            <ambient>0.7 0.2 0.2 1</ambient>
+            <diffuse>0.7 0.2 0.2 1</diffuse>
           </material>
         </visual>
         <velocity_decay>

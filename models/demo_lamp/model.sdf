@@ -65,6 +65,24 @@
         </geometry>
        </collision>
     </link>
+    <link name='dimensions'>
+      <visual name='visual'>
+        <pose frame=''>0.0 0.0 0.21 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.34 0.34 0.42</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>
+          </script>
+        </material>
+        <cast_shadows>0</cast_shadows>
+        <transparency>0.8</transparency>
+      </visual>
+    </link>
     <static>1</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
