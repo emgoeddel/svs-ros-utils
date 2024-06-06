@@ -3,7 +3,7 @@
   <world name="place_test_1">
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>2 -1 1.5 0 0.4 2.5</pose>
+        <pose frame=''>2 1 1.5 0 0.4 -2.6</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
